@@ -98,7 +98,7 @@ public struct CodeScannerView: UIViewControllerRepresentable {
 
     public func updateUIViewController(_ uiViewController: ScannerViewController, context: Context) {
         uiViewController.updateViewController(
-            isTorchOn: isTorchOn.,
+            isTorchOn: isTorchOn.wrappedValue,
             isGalleryPresented: isGalleryPresented.wrappedValue
         )
     }
