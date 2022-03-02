@@ -182,15 +182,6 @@ extension CodeScannerView {
                 delegate?.didFail(reason: .badOutput)
                 return
             }
-            
-            let bTorch = UIButton(type: .custom)
-            bTorch.setImage(UIImage(systemName: "flashlight.on.fill"), for: .normal)
-            bTorch.tintColor = .red
-            bTorch.addTarget(self, action: #selector(bTorchTapped), for: .touchUpInside)
-            view.addSubview(bTorch)
-            
-            bTorch.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-            bTorch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         }
         
         @objc func bTorchTapped() {
@@ -231,13 +222,21 @@ extension CodeScannerView {
             
             delegate?.reset()
             
-            view.bringSubviewToFront(bTorch)
-            
             if (captureSession?.isRunning == false) {
                 DispatchQueue.global(qos: .userInitiated).async {
                     self.captureSession.startRunning()
                 }
             }
+            
+            
+            let bTorch = UIButton(type: .custom)
+            bTorch.setImage(UIImage(systemName: "flashlight.on.fill"), for: .normal)
+            bTorch.tintColor = .red
+            bTorch.addTarget(self, action: #selector(bTorchTapped), for: .touchUpInside)
+            view.addSubview(bTorch)
+            
+            bTorch.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+            bTorch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         }
         
         private func addviewfinder() {
