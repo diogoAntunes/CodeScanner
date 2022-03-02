@@ -182,6 +182,22 @@ extension CodeScannerView {
                 delegate?.didFail(reason: .badOutput)
                 return
             }
+            
+            let bTorch = UIButton(type: .custom)
+            bTorch.setImage(UIImage(systemName: "flashlight.on.fill"), for: .normal)
+            bTorch.addTarget(self, action: #selector(bTorchTapped), for: .touchUpInside)
+            view.addSubview(bTorch)
+            
+            bTorch.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+            bTorch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
+        }
+        
+        @objc func bTorchTapped() {
+            if let backCamera = AVCaptureDevice.default(for: AVMediaType.video), backCamera.hasTorch {
+                try? backCamera.lockForConfiguration()
+                backCamera.torchMode = backCamera.torchMode == .on ? .off : .on
+                backCamera.unlockForConfiguration()
+            }
         }
         
         override public func viewWillLayoutSubviews() {
