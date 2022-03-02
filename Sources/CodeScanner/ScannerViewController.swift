@@ -185,6 +185,7 @@ extension CodeScannerView {
             
             let bTorch = UIButton(type: .custom)
             bTorch.setImage(UIImage(systemName: "flashlight.on.fill"), for: .normal)
+            bTorch.tintColor = .red
             bTorch.addTarget(self, action: #selector(bTorchTapped), for: .touchUpInside)
             view.addSubview(bTorch)
             
@@ -212,6 +213,7 @@ extension CodeScannerView {
         
         override public func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
+            
             updateOrientation()
         }
         
@@ -228,6 +230,8 @@ extension CodeScannerView {
             addviewfinder()
             
             delegate?.reset()
+            
+            view.bringSubviewToFront(bTorch)
             
             if (captureSession?.isRunning == false) {
                 DispatchQueue.global(qos: .userInitiated).async {
