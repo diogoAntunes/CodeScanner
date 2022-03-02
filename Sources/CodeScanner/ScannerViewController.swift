@@ -184,14 +184,6 @@ extension CodeScannerView {
             }
         }
         
-        @objc func bTorchTapped() {
-            if let backCamera = AVCaptureDevice.default(for: AVMediaType.video), backCamera.hasTorch {
-                try? backCamera.lockForConfiguration()
-                backCamera.torchMode = backCamera.torchMode == .on ? .off : .on
-                backCamera.unlockForConfiguration()
-            }
-        }
-        
         override public func viewWillLayoutSubviews() {
             previewLayer?.frame = view.layer.bounds
         }
@@ -204,7 +196,6 @@ extension CodeScannerView {
         
         override public func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
-            
             updateOrientation()
         }
         
@@ -227,16 +218,6 @@ extension CodeScannerView {
                     self.captureSession.startRunning()
                 }
             }
-            
-            
-            let bTorch = UIButton(type: .custom)
-            bTorch.setImage(UIImage(systemName: "flashlight.on.fill"), for: .normal)
-            bTorch.tintColor = .red
-            bTorch.addTarget(self, action: #selector(bTorchTapped), for: .touchUpInside)
-            view.addSubview(bTorch)
-            
-            bTorch.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-            bTorch.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
         }
         
         private func addviewfinder() {
